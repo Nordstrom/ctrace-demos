@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# curl http://localhost:8005/ok?region=world
+curl -o dump.out -s http://localhost:8004/gw?url=http%3A%2F%2Fctracedemos_go_hello_1%2Fok&region=world
+curl -o dump.out -s http://localhost:8006/gw?url=http%3A%2F%2Fctracedemos_js_hello_1%2Fok&region=world
+
+# curl http://localhost:8006/ok?region=world
+# echo
+# curl http://localhost:8007/gw?url=http%3A%2F%2Fctracedemos_go_hello_1%2Fok&region=world
+# echo

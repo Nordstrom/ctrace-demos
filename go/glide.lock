@@ -1,0 +1,20 @@
+hash: 0f7e90bdab310de5d88e2fdd4b3240e7d25f4d47cfd0986b433257d5e849f62e
+updated: 2017-05-10T21:19:51.720738913-07:00
+imports:
+- name: github.com/felixge/httpsnoop
+  version: 287b56e9e314227d3113c7c6b434d31aec68089d
+- name: github.com/Nordstrom/ctrace-go
+  version: cead9d1ea311eb8a0274534eb3b33c5dd86d5d66
+  subpackages:
+  - ext
+  - http
+  - log
+- name: github.com/opentracing/opentracing-go
+  version: 1949ddbfd147afd4d964a9f00b24eb291e0e7c38
+  subpackages:
+  - log
+- name: golang.org/x/net
+  version: f2499483f923065a842d38eb4c7f1927e6fc6e6d
+  subpackages:
+  - context
+testImports: []
