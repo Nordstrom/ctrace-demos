@@ -51,7 +51,7 @@ services:
     environment:
       http_proxy: "${http_proxy}"
       https_proxy: "${https_proxy}"
-      no_proxy: ctrace_hello_1
+      no_proxy: ctracedemos_js_hello_1
 
   js_hello:
     build:
