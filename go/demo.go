@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
+	"os"
 
 	ctrace "github.com/Nordstrom/ctrace-go"
 	chttp "github.com/Nordstrom/ctrace-go/http"
@@ -65,8 +66,29 @@ func err(w http.ResponseWriter, r *http.Request) {
 
 }
 
+func initializeTracing() *os.File {
+	logFile := os.Getenv("LOGFILE")
+
+	if logFile == "" {
+		opentracing.InitGlobalTracer(ctrace.New())
+		return nil
+	}
+
+	writer, err := os.Create(logFile)
+	if err != nil {
+		fmt.Printf("Failed to create log file '%s'. Will fall back to logging only to stdout.\n", logFile)
+		opentracing.InitGlobalTracer(ctrace.New())
+		return nil
+	}
+
+	opentracing.InitGlobalTracer(ctrace.NewWithOptions(ctrace.TracerOptions{Writer: writer}))
+	return writer
+}
+
 func main() {
-	opentracing.InitGlobalTracer(ctrace.New())
+
+	writer := initializeTracing()
+	defer writer.Close()
 
 	http.HandleFunc("/gw", gateway)
 	http.HandleFunc("/ok", ok)
