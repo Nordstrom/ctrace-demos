@@ -1,12 +1,29 @@
-
 const express = require('express')
 const rp = require('request-promise')
 const app = express()
 const tracer = require('ctrace-js')
 const tr = tracer.request
+const fs = require('fs')
+
+var logfile = process.env.LOGFILE
+
+if (logfile && logfile.length != 0) {
+
+  var wstream = fs.createWriteStream(logfile)
+
+  process.on ('SIGTERM', function(){
+    wstream.end()
+  })
+
+  process.on ('SIGINT', function(){
+    wstream.end()
+  })
+
+  var options={stream: wstream}
+  tracer.init(options)
+}
 
 tr.init(rp)
-
 app.use(tracer.express())
 
 function send (ctx, uri, region) {

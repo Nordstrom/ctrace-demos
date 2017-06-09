@@ -56,6 +56,7 @@ services:
       http_proxy: "${http_proxy}"
       https_proxy: "${https_proxy}"
       no_proxy: ctracedemos_js_hello_1
+      LOGFILE: "/var/log/js_gw.log"
 
   js_hello:
     build:
