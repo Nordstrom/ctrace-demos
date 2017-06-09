@@ -33,6 +33,8 @@ func send(ctx context.Context, u string, r string) ([]byte, error) {
 }
 
 func gateway(w http.ResponseWriter, r *http.Request) {
+	span := opentracing.SpanFromContext(r.Context())
+	span.SetTag("serviceName", os.Getenv("SERVICENAME"))
 	q := r.URL.Query()
 	u, _ := url.QueryUnescape(q.Get("url"))
 	region := q.Get("region")
@@ -48,6 +50,8 @@ func gateway(w http.ResponseWriter, r *http.Request) {
 }
 
 func ok(w http.ResponseWriter, r *http.Request) {
+	span := opentracing.SpanFromContext(r.Context())
+	span.SetTag("serviceName", os.Getenv("SERVICENAME"))
 	q := r.URL.Query()
 	region, _ := url.QueryUnescape(q.Get("region"))
 	msg := hello(r.Context(), region)

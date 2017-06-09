@@ -19,7 +19,7 @@ services:
     environment:
       http_proxy: "${http_proxy}"
       https_proxy: "${https_proxy}"
-      LOGFILE: "/var/log/go_gw.log"
+      SERVICENAME: "go_gw"
     volumes:
       - ctrace-demo-logs:/var/log/
 
@@ -38,6 +38,7 @@ services:
     environment:
       http_proxy: "${http_proxy}"
       https_proxy: "${https_proxy}"
+      SERVICENAME: "go_hello"
 
   js_gw:
     build:
