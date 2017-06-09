@@ -19,6 +19,7 @@ services:
     environment:
       http_proxy: "${http_proxy}"
       https_proxy: "${https_proxy}"
+      LOGFILE: "/var/log/go_gw.log"
       SERVICENAME: "go_gw"
     volumes:
       - ctrace-demo-logs:/var/log/
@@ -38,7 +39,10 @@ services:
     environment:
       http_proxy: "${http_proxy}"
       https_proxy: "${https_proxy}"
+      LOGFILE: "/var/log/go_hello.log"
       SERVICENAME: "go_hello"
+    volumes:
+      - ctrace-demo-logs:/var/log/
 
   js_gw:
     build:
@@ -58,6 +62,8 @@ services:
       no_proxy: ctracedemos_js_hello_1
       LOGFILE: "/var/log/js_gw.log"
       SERVICENAME: "js_gw"
+    volumes:
+      - ctrace-demo-logs:/var/log/
 
   js_hello:
     build:
@@ -74,7 +80,10 @@ services:
     environment:
       http_proxy: "${http_proxy}"
       https_proxy: "${https_proxy}"
+      LOGFILE: "/var/log/js_hello.log"
       SERVICENAME: "js_hello"
+    volumes:
+      - ctrace-demo-logs:/var/log/
 
 volumes:
   ctrace-demo-logs:
