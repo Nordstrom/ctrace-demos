@@ -57,6 +57,7 @@ services:
       https_proxy: "${https_proxy}"
       no_proxy: ctracedemos_js_hello_1
       LOGFILE: "/var/log/js_gw.log"
+      SERVICENAME: "js_gw"
 
   js_hello:
     build:
@@ -73,6 +74,7 @@ services:
     environment:
       http_proxy: "${http_proxy}"
       https_proxy: "${https_proxy}"
+      SERVICENAME: "js_hello"
 
 volumes:
   ctrace-demo-logs:

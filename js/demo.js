@@ -6,6 +6,7 @@ const tr = tracer.request
 const fs = require('fs')
 
 var logfile = process.env.LOGFILE
+var serviceName = process.env.SERVICENAME
 
 if (logfile && logfile.length != 0) {
 
@@ -31,6 +32,8 @@ function send (ctx, uri, region) {
 }
 
 app.get('/gw', (req, res) => {
+  let span = req.traceContext.span
+  span.addTags({'serviceName': serviceName})
   send(req.traceContext, decodeURI(req.query.url), decodeURI(req.query.region))
     .then(rtn => {
       res.send(rtn)
@@ -42,6 +45,7 @@ app.get('/gw', (req, res) => {
 
 app.get('/ok', (req, res) => {
   let span = req.traceContext.span
+  span.addTags({'serviceName': serviceName})
   let region = req.query.region
   let msg = `Hello ${region}!`
   span.log({event: 'generate-msg', message: msg})
