@@ -10,7 +10,6 @@ services:
       args:
         http_proxy: "${http_proxy}"
         https_proxy: "${https_proxy}"
-
     image: ctrace-demo-go
     networks:
       - main
@@ -30,7 +29,6 @@ services:
       args:
         http_proxy: "${http_proxy}"
         https_proxy: "${https_proxy}"
-
     image: ctrace-demo-go
     networks:
       - main
@@ -50,7 +48,6 @@ services:
       args:
         http_proxy: "${http_proxy}"
         https_proxy: "${https_proxy}"
-
     image: ctrace-demo-js
     networks:
       - main
@@ -71,7 +68,6 @@ services:
       args:
         http_proxy: "${http_proxy}"
         https_proxy: "${https_proxy}"
-
     image: ctrace-demo-js
     networks:
       - main
@@ -84,6 +80,13 @@ services:
       SERVICENAME: "js_hello"
     volumes:
       - ctrace-demo-logs:/var/log/
+
+  zipkin:
+    image: quay.io/openzipkin/zipkin:1.26.0
+    ports:
+      - "9411:9411"
+    networks:
+      - main
 
 volumes:
   ctrace-demo-logs:
