@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+sleep 30
+
+/opt/flink/bin/flink run -m jobmanager:6123 -c com.nordstrom.mdt.StreamingJob /job/target/ctrace-zipkin-demo-converter-1.0-SNAPSHOT.jar --inputPath /var/log/demo/ --zipkinHost zipkin
