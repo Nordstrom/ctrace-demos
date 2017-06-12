@@ -7,9 +7,6 @@ The basic demo runs four services that log ctrace-style logs to stdout. Start th
 
 The advanced demo runs those same four services, but they log to a file. Start the demo with `docker-compose -f docker-compose.yml -f docker-compose-zipkin.yml up`. In this case, Flink is tailing the log files; it performs some minimal transformation, then it submits those to Zipkin. You can see the Zipkin UI at `http://localhost:9411`. Flink is running at `http://localhost:8081`. Docker waits a bit before submitting the Flink job to the cluster, so there will be a delay before Flink begins processing. As before, execute `run.sh` to make calls against the running services. Stop this via `$ docker-compose -f docker-compose.yml -f docker-compose-zipkin.yml down`.
 
-# How to Stop This
-`docker-compose down`
-
 # ctrace-demos
 Canonical OpenTracing Demos
 
