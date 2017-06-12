@@ -64,11 +64,16 @@ services:
       - ctrace-demo-logs:/var/log/demo/
 
   bootstrapper:
-    image: myflink
-    environment:
-      - no_proxy=jobmanager
+    build:
+      context: ./flink-job
+      args:
+        http_proxy: "${http_proxy}"
+        https_proxy: "${https_proxy}"
+    image: bootstrapper
     networks:
       - main
+    environment:
+      - no_proxy=jobmanager
     depends_on:
       - jobmanager
 
