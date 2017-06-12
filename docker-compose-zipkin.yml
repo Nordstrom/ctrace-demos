@@ -1,0 +1,76 @@
+version: '3'
+networks:
+  main:
+    driver: bridge
+
+services:
+  go_gw:
+    environment:
+      LOGFILE: "/var/log/demo/go_gw.log"
+    volumes:
+      - ctrace-demo-logs:/var/log/demo/
+
+  go_hello:
+    environment:
+      LOGFILE: "/var/log/demo/go_hello.log"
+    volumes:
+      - ctrace-demo-logs:/var/log/demo/
+
+  js_gw:
+    environment:
+      LOGFILE: "/var/log/demo/js_gw.log"
+    volumes:
+      - ctrace-demo-logs:/var/log/demo/
+
+  js_hello:
+    environment:
+      LOGFILE: "/var/log/demo/js_hello.log"
+    volumes:
+      - ctrace-demo-logs:/var/log/demo/
+
+  zipkin:
+    image: quay.io/openzipkin/zipkin:1.26.0
+    ports:
+      - "9411:9411"
+    networks:
+      - main
+
+  jobmanager:
+    image: flink:1.3.0-hadoop27-scala_2.11
+    expose:
+      - "6123"
+    ports:
+      - "8081:8081"
+    command: jobmanager
+    environment:
+      - JOB_MANAGER_RPC_ADDRESS=jobmanager
+    networks:
+      - main
+
+  taskmanager:
+    image: flink:1.3.0-hadoop27-scala_2.11
+    expose:
+      - "6121"
+      - "6122"
+    depends_on:
+      - jobmanager
+      - zipkin
+    command: taskmanager
+    environment:
+      - JOB_MANAGER_RPC_ADDRESS=jobmanager
+    networks:
+      - main
+    volumes:
+      - ctrace-demo-logs:/var/log/demo/
+
+  bootstrapper:
+    image: myflink
+    environment:
+      - no_proxy=jobmanager
+    networks:
+      - main
+    depends_on:
+      - jobmanager
+
+volumes:
+  ctrace-demo-logs:

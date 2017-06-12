@@ -18,10 +18,7 @@ services:
     environment:
       http_proxy: "${http_proxy}"
       https_proxy: "${https_proxy}"
-      LOGFILE: "/var/log/demo/go_gw.log"
       SERVICENAME: "go_gw"
-    volumes:
-      - ctrace-demo-logs:/var/log/demo/
 
   go_hello:
     build:
@@ -37,10 +34,7 @@ services:
     environment:
       http_proxy: "${http_proxy}"
       https_proxy: "${https_proxy}"
-      LOGFILE: "/var/log/demo/go_hello.log"
       SERVICENAME: "go_hello"
-    volumes:
-      - ctrace-demo-logs:/var/log/demo/
 
   js_gw:
     build:
@@ -57,10 +51,7 @@ services:
       http_proxy: "${http_proxy}"
       https_proxy: "${https_proxy}"
       no_proxy: ctracedemos_js_hello_1
-      LOGFILE: "/var/log/demo/js_gw.log"
       SERVICENAME: "js_gw"
-    volumes:
-      - ctrace-demo-logs:/var/log/demo/
 
   js_hello:
     build:
@@ -76,46 +67,4 @@ services:
     environment:
       http_proxy: "${http_proxy}"
       https_proxy: "${https_proxy}"
-      LOGFILE: "/var/log/demo/js_hello.log"
       SERVICENAME: "js_hello"
-    volumes:
-      - ctrace-demo-logs:/var/log/demo/
-
-  zipkin:
-    image: quay.io/openzipkin/zipkin:1.26.0
-    ports:
-      - "9411:9411"
-    networks:
-      - main
-
-  jobmanager:
-    image: flink:1.3.0-hadoop27-scala_2.11
-    expose:
-      - "6123"
-    ports:
-      - "8081:8081"
-    command: jobmanager
-    environment:
-      - JOB_MANAGER_RPC_ADDRESS=jobmanager
-    networks:
-      - main
-
-  taskmanager:
-    image: flink:1.3.0-hadoop27-scala_2.11
-    expose:
-      - "6121"
-      - "6122"
-    depends_on:
-      - jobmanager
-    command: taskmanager
-    links:
-      - "jobmanager:jobmanager"
-    environment:
-      - JOB_MANAGER_RPC_ADDRESS=jobmanager
-    networks:
-      - main
-    volumes:
-      - ctrace-demo-logs:/var/log/demo/
-
-volumes:
-  ctrace-demo-logs:
