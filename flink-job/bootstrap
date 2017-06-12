@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
-sleep 30
+sleep 15
 
-/opt/flink/bin/flink run -m jobmanager:6123 -c com.nordstrom.mdt.StreamingJob /job/target/ctrace-zipkin-demo-converter-1.0-SNAPSHOT.jar --inputPath /var/log/demo/ --zipkinHost zipkin
+/opt/flink/bin/flink run -m ${JOBMANAGER}:6123 -c com.nordstrom.mdt.StreamingJob /job/target/ctrace-zipkin-demo-converter-1.0-SNAPSHOT.jar --inputPath ${INPUT_PATH} --zipkinHost ${ZIPKIN_HOST}

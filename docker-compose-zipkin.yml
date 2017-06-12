@@ -74,6 +74,9 @@ services:
       - main
     environment:
       - no_proxy=jobmanager
+      - JOBMANAGER=jobmanager
+      - INPUT_PATH=/var/log/demo/
+      - ZIPKIN_HOST=zipkin
     depends_on:
       - jobmanager
 
