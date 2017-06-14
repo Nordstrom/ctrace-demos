@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
+	"os"
 
 	ctrace "github.com/Nordstrom/ctrace-go"
 	chttp "github.com/Nordstrom/ctrace-go/http"
@@ -66,6 +67,8 @@ func err(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+	s := os.Getenv("CTRACE_SERVICE_NAME")
+	fmt.Println("sname=" + s)
 	opentracing.InitGlobalTracer(ctrace.New())
 
 	http.HandleFunc("/gw", gateway)

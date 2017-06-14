@@ -4,7 +4,7 @@
   "main": "demo.js",
   "license": "MIT",
   "dependencies": {
-    "ctrace-js": "^0.2.0",
+    "ctrace-js": "^0.5.0",
     "express": "^4.15.2",
     "opentracing": "^0.14.0",
     "request": "^2.81.0",

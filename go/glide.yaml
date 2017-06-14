@@ -1,8 +1,7 @@
 package: github.com/Nordstrom/ctrace-demos/go
 import:
+- package: github.com/opentracing/opentracing-go
+  version: ^1.0.2
 - package: github.com/Nordstrom/ctrace-go
   subpackages:
   - http
-  - log
-- package: github.com/opentracing/opentracing-go
-  version: ^1.0.2
